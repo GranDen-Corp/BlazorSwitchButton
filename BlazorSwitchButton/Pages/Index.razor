@@ -5,19 +5,27 @@
 
 <fieldset class="border p-3">
     <legend>Js Dynamically create Switch Button</legend>
-    <div @ref="switchButtonContainer"></div>
+    <span @ref="switchButtonContainer"></span>
 </fieldset>
 
 @code {
     IJSObjectReference _switchButtonModule;
     ElementReference switchButtonContainer;
+    IJSObjectReference checkBoxInput;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             _switchButtonModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/invoke.js");
-            await _switchButtonModule.InvokeVoidAsync("createSwitchButton", switchButtonContainer);
+           checkBoxInput = await _switchButtonModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
+                new
+                {
+                    Onlabel = "Enabled",
+                    Offlabel = "Disabled"
+                });
+            await _switchButtonModule.InvokeVoidAsync("setSwitchButtonStatus",checkBoxInput,
+                "on");
         }
 
         await base.OnAfterRenderAsync(firstRender);
