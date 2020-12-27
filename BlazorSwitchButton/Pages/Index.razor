@@ -1,0 +1,26 @@
+﻿@page "/"
+@inject IJSRuntime JS;
+
+<h1>Bootstrap Switch Button Demo</h1>
+
+<fieldset class="border p-3">
+    <legend>Js Dynamically create Switch Button</legend>
+    <div @ref="switchButtonContainer"></div>
+</fieldset>
+
+@code {
+    IJSObjectReference _switchButtonModule;
+    ElementReference switchButtonContainer;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _switchButtonModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/invoke.js");
+            await _switchButtonModule.InvokeVoidAsync("createSwitchButton", switchButtonContainer);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+}
