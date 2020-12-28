@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorSwitchButton.Data
+namespace RazorPageDemo.Data
 {
     public class WeatherForecastService
     {

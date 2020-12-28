@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/BlazorSwitchButton/bin/Debug/net5.0/BlazorSwitchButton.dll",
+            "program": "${workspaceFolder}/examples/RazorPageDemo/bin/Debug/net5.0/RazorPageDemo.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/BlazorSwitchButton",
+            "cwd": "${workspaceFolder}/examples/RazorPageDemo",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
@@ -23,7 +23,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/Views": "${workspaceFolder}/examples/Views"
             }
         },
         {

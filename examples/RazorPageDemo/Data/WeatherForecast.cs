@@ -1,6 +1,6 @@
 using System;
 
-namespace BlazorSwitchButton.Data
+namespace RazorPageDemo.Data
 {
     public class WeatherForecast
     {

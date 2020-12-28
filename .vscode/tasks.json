@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/BlazorSwitchButton/BlazorSwitchButton.csproj",
+                "${workspaceFolder}/examples/RazorPageDemo/RazorPageDemo.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/BlazorSwitchButton/BlazorSwitchButton.csproj",
+                "${workspaceFolder}/examples/RazorPageDemo/RazorPageDemo.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/BlazorSwitchButton/BlazorSwitchButton.csproj",
+                "${workspaceFolder}/examples/RazorPageDemo/RazorPageDemo.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
