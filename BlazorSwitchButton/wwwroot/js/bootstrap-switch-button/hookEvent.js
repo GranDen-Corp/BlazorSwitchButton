@@ -1,14 +1,17 @@
-﻿let dotNetInvokeReference = {
+﻿// noinspection JSUnusedGlobalSymbols
+let dotNetInvokeUtil = {
     dotNetReference: null,
-    init: function (dotNetReference, checkBoxReference) {
+    init(dotNetReference, checkBoxReference) {
         this.dotNetReference = dotNetReference;
         checkBoxReference.addEventListener('change', function (event) {
-            event.value = checkBoxReference.checked;
+            event.value = !!checkBoxReference.checked;
+            // noinspection JSUnresolvedFunction
             dotNetReference.invokeMethodAsync('SwitchBtnEventHandler', event)
         });
     }
 };
 
+// noinspection JSUnusedGlobalSymbols
 export let createDotNetInvokeRef = function () {
-    return dotNetInvokeReference
+    return dotNetInvokeUtil
 };

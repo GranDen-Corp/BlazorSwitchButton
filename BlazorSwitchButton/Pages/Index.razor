@@ -43,11 +43,16 @@
     [JSInvokable("SwitchBtnEventHandler")]
     public void OnSwitchButtonClicked(ChangeEventArgs e)
     {
-        Log.Information("event is {@ChangeEventArgs}", e);
+        var status = e.Value?.ToString();
+        if (bool.TryParse(status, out var isChecked))
+        {
+            Log.Information("switch is {0}", isChecked);
+        }
     }
 
     public async ValueTask DisposeAsync()
     {
+        await switchButtonEventInvokeRef.DisposeAsync();
         await _switchButtonEventHandlerModule.DisposeAsync();
         dotNetInvokeRef?.Dispose();
         await _switchButtonInitModule.DisposeAsync();
