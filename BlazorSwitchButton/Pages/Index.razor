@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using Serilog
 @inject IJSRuntime JS;
+@implements IAsyncDisposable;
 
 <h1>Bootstrap Switch Button Demo</h1>
 
@@ -9,26 +11,46 @@
 </fieldset>
 
 @code {
-    IJSObjectReference _switchButtonModule;
+    IJSObjectReference _switchButtonInitModule;
+    IJSObjectReference _switchButtonEventHandlerModule;
     ElementReference switchButtonContainer;
-    IJSObjectReference checkBoxInput;
+    IJSObjectReference checkBoxInputJsRef;
+    DotNetObjectReference<Index> dotNetInvokeRef;
+    IJSObjectReference switchButtonEventInvokeRef;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _switchButtonModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/invoke.js");
-           checkBoxInput = await _switchButtonModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
+            _switchButtonInitModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/initUI.js");
+            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
                 new
                 {
                     Onlabel = "Enabled",
                     Offlabel = "Disabled"
                 });
-            await _switchButtonModule.InvokeVoidAsync("setSwitchButtonStatus",checkBoxInput,
+            await _switchButtonInitModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef,
                 "on");
+            _switchButtonEventHandlerModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/hookEvent.js");
+            switchButtonEventInvokeRef = await _switchButtonEventHandlerModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
+            dotNetInvokeRef = DotNetObjectReference.Create(this);
+            await switchButtonEventInvokeRef.InvokeVoidAsync("init", dotNetInvokeRef, checkBoxInputJsRef);
         }
 
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable("SwitchBtnEventHandler")]
+    public void OnSwitchButtonClicked(ChangeEventArgs e)
+    {
+        Log.Information("event is {@ChangeEventArgs}", e);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _switchButtonEventHandlerModule.DisposeAsync();
+        dotNetInvokeRef?.Dispose();
+        await _switchButtonInitModule.DisposeAsync();
     }
 
 }
