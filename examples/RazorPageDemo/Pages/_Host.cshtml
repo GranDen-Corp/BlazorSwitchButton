@@ -14,7 +14,8 @@
     <base href="~/"/>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/site.css"/>
-    <link rel="stylesheet" href="BlazorSwitchButton.styles.css"/>
+    @* ReSharper disable once Html.PathError *@
+    <link rel="stylesheet" href="@(typeof(App).Assembly.GetName().Name).styles.css"/>
     <link rel="stylesheet" href="css/bootstrap-switch-button/bootstrap-switch-button.min.css"/>
 </head>
 <body>
@@ -31,6 +32,7 @@
     <a class="dismiss">🗙</a>
 </div>
 
+@* ReSharper disable once Html.PathError *@
 <script src="_framework/blazor.server.js"></script>
 <script src="js/bootstrap-switch-button/bootstrap-switch-button.min.js"></script>
 </body>
