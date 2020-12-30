@@ -1,0 +1,100 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+@implements IAsyncDisposable;
+
+<span @ref="switchButtonContainer"></span>
+
+@code {
+
+    [Parameter]
+    public string OnUiLabel { get; set; } = "On";
+
+    [Parameter]
+    public string OffUiLabel { get; set; } = "Off";
+
+    [Parameter]
+    public string OnUiStyle { get; set; } = "primary";
+
+    [Parameter]
+    public string OffUiStyle { get; set; } = "light";
+
+    [Parameter]
+    public string SwitchSize { get; set; } = null;
+
+    [Parameter]
+    public string SwitchStyle { get; set; } = null;
+
+    [Parameter]
+    public int? SwitchWidth { get; set; }
+
+    [Parameter]
+    public int? SwitchHeight { get; set; }
+
+    [Parameter]
+    public string InitialState { get; set; } = null;
+
+    [Parameter]
+    public EventCallback<bool> StateChanged { get; set; }
+
+    #region Event Interop references
+
+    IJSObjectReference _switchButtonInitModule;
+    IJSObjectReference _switchButtonEventHandlerModule;
+    ElementReference switchButtonContainer;
+    IJSObjectReference checkBoxInputJsRef;
+    DotNetObjectReference<Switch> dotNetInvokeRef;
+    IJSObjectReference switchButtonEventInvokeRef;
+
+    #endregion
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            var importPath = $"./_content/{typeof(Switch).Assembly.GetName().Name}/js/";
+            _switchButtonInitModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/initUI.js");
+            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
+                new
+                {
+                    Onlabel = OnUiLabel,
+                    Offlabel = OffUiLabel,
+                    OnStyle = OnUiStyle,
+                    OffStyle = OffUiStyle,
+                    Size = SwitchSize,
+                    Style = SwitchStyle,
+                    Width = SwitchWidth,
+                    Height = SwitchHeight
+                });
+            if (!string.IsNullOrEmpty(InitialState))
+            {
+                await _switchButtonInitModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef, InitialState);
+            }
+            _switchButtonEventHandlerModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/hookEvent.js");
+            switchButtonEventInvokeRef = await _switchButtonEventHandlerModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
+            dotNetInvokeRef = DotNetObjectReference.Create(this);
+            await switchButtonEventInvokeRef.InvokeVoidAsync("init", dotNetInvokeRef, checkBoxInputJsRef);
+        }
+    }
+
+    [JSInvokable("SwitchBtnEventHandler")]
+    public void OnSwitchButtonClicked(ChangeEventArgs e)
+    {
+        var status = e.Value?.ToString();
+        var isChecked = bool.Parse(status ?? string.Empty);
+        if (StateChanged.HasDelegate)
+        {
+            StateChanged.InvokeAsync(isChecked);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await switchButtonEventInvokeRef.DisposeAsync();
+        await _switchButtonEventHandlerModule.DisposeAsync();
+        dotNetInvokeRef?.Dispose();
+        await _switchButtonInitModule.DisposeAsync();
+        await checkBoxInputJsRef.DisposeAsync();
+    }
+
+}

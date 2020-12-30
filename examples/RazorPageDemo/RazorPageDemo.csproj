@@ -9,4 +9,17 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GranDen.Blazor.Bootstrap.SwitchButton\GranDen.Blazor.Bootstrap.SwitchButton.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-switch-button\bootstrap-switch-button.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-switch-button\bootstrap-switch-button.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js" />
+  </ItemGroup>
+
 </Project>

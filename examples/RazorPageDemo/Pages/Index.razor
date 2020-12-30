@@ -1,62 +1,23 @@
 ﻿@page "/"
+@using GranDen.Blazor.Bootstrap.SwitchButton
 @using Serilog
-@inject IJSRuntime JS;
-@implements IAsyncDisposable;
 
 <h1>Bootstrap Switch Button Demo</h1>
 
 <fieldset class="border p-3">
     <legend>Js Dynamically create Switch Button</legend>
-    <span @ref="switchButtonContainer"></span>
+
+    <Switch InitialState="on"
+            OnUiLabel="Enabled" OffUiLabel="Disabled"
+            StateChanged="@SwitchCompStageChanged">
+    </Switch>
 </fieldset>
 
 @code {
-    IJSObjectReference _switchButtonInitModule;
-    IJSObjectReference _switchButtonEventHandlerModule;
-    ElementReference switchButtonContainer;
-    IJSObjectReference checkBoxInputJsRef;
-    DotNetObjectReference<Index> dotNetInvokeRef;
-    IJSObjectReference switchButtonEventInvokeRef;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private void SwitchCompStageChanged(bool currentState)
     {
-        if (firstRender)
-        {
-            _switchButtonInitModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/initUI.js");
-            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
-                new
-                {
-                    Onlabel = "Enabled",
-                    Offlabel = "Disabled"
-                });
-            await _switchButtonInitModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef,
-                "on");
-            _switchButtonEventHandlerModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/bootstrap-switch-button/hookEvent.js");
-            switchButtonEventInvokeRef = await _switchButtonEventHandlerModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
-            dotNetInvokeRef = DotNetObjectReference.Create(this);
-            await switchButtonEventInvokeRef.InvokeVoidAsync("init", dotNetInvokeRef, checkBoxInputJsRef);
-        }
-
-        await base.OnAfterRenderAsync(firstRender);
-    }
-
-    [JSInvokable("SwitchBtnEventHandler")]
-    public void OnSwitchButtonClicked(ChangeEventArgs e)
-    {
-        var status = e.Value?.ToString();
-        if (bool.TryParse(status, out var isChecked))
-        {
-            Log.Information("switch is {0}", isChecked);
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        await switchButtonEventInvokeRef.DisposeAsync();
-        await _switchButtonEventHandlerModule.DisposeAsync();
-        dotNetInvokeRef?.Dispose();
-        await _switchButtonInitModule.DisposeAsync();
-        await checkBoxInputJsRef.DisposeAsync();
+        Log.Information("switch is {0}", currentState);
     }
 
 }

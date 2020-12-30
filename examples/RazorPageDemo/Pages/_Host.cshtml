@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="css/site.css"/>
     @* ReSharper disable once Html.PathError *@
     <link rel="stylesheet" href="@(typeof(App).Assembly.GetName().Name).styles.css"/>
-    <link rel="stylesheet" href="css/bootstrap-switch-button/bootstrap-switch-button.min.css"/>
+    @* <link rel="stylesheet" href="css/bootstrap-switch-button/bootstrap-switch-button.min.css"/> *@
+    <link href="_content/@(typeof(GranDen.Blazor.Bootstrap.SwitchButton.Switch).Assembly.GetName().Name)/css/bootstrap-switch-button.min.css"/>
 </head>
 <body>
 <component type="typeof(App)" render-mode="ServerPrerendered"/>
@@ -34,6 +35,8 @@
 
 @* ReSharper disable once Html.PathError *@
 <script src="_framework/blazor.server.js"></script>
-<script src="js/bootstrap-switch-button/bootstrap-switch-button.min.js"></script>
+
+@* <script src="js/bootstrap-switch-button/bootstrap-switch-button.min.js"></script> *@
+<script src="_content/@(typeof(GranDen.Blazor.Bootstrap.SwitchButton.Switch).Assembly.GetName().Name)/js/bootstrap-switch-button.min.js"></script>
 </body>
 </html>
