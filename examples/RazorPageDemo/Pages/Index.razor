@@ -8,13 +8,13 @@
 
     <Switch InitialState="on"
             OnUiLabel="Enabled" OffUiLabel="Disabled"
-            StateChanged="@SwitchCompStageChanged">
+            StateChanged="@SwitchCompStateChanged">
     </Switch>
 </fieldset>
 
 @code {
 
-    private void SwitchCompStageChanged(bool currentState)
+    private void SwitchCompStateChanged(bool currentState)
     {
         Log.Information("switch is {0}", currentState);
     }
