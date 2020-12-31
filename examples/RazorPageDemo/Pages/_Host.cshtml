@@ -3,37 +3,39 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
+    var rclCompName = typeof(GranDen.Blazor.Bootstrap.SwitchButton.Switch).Assembly.GetName().Name;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RazorPageDemo</title>
-    <base href="~/"/>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/site.css"/>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
     @* ReSharper disable once Html.PathError *@
-    <link rel="stylesheet" href="@(typeof(App).Assembly.GetName().Name).styles.css"/>
-    <link rel="stylesheet" href="css/bootstrap-switch-button/bootstrap-switch-button.min.css"/>
+    <link rel="stylesheet" href="@(typeof(App).Assembly.GetName().Name).styles.css" />
+    <link rel="stylesheet" href="_content/@rclCompName/css/bootstrap-switch-button.min.css" />
 </head>
 <body>
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
 
-<div id="blazor-error-ui">
-    <environment include="Staging,Production">
-        An error has occurred. This application may no longer respond until reloaded.
-    </environment>
-    <environment include="Development">
-        An unhandled exception has occurred. See browser dev tools for details.
-    </environment>
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
 
-@* ReSharper disable once Html.PathError *@
-<script src="_framework/blazor.server.js"></script>
-<script src="js/bootstrap-switch-button/bootstrap-switch-button.min.js"></script>
+    @* ReSharper disable once Html.PathError *@
+    <script src="_framework/blazor.server.js"></script>
+
+    <script src="_content/@rclCompName/js/bootstrap-switch-button.min.js"></script>
 </body>
 </html>
