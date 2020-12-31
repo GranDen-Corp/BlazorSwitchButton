@@ -9,6 +9,11 @@
     <Content Remove="wwwroot\js\**" />
     <EmbeddedResource Remove="wwwroot\js\**" />
     <None Remove="wwwroot\js\**" />
+
+    <Compile Remove="screenshots\**" />
+    <Content Remove="screenshots\**" />
+    <EmbeddedResource Remove="screenshots\**" />
+    <None Remove="screenshots\**" />
   </ItemGroup>
 
   <ItemGroup>
