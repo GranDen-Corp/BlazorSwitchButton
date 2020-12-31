@@ -1,4 +1,5 @@
 ﻿@using Microsoft.JSInterop
+@using GranDen.Blazor.Bootstrap.SwitchButton.Options
 @inject IJSRuntime JS;
 @implements IAsyncDisposable;
 
@@ -52,20 +53,28 @@
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
+            var switchOption = new SwitchOption
+            {
+                Onlabel = OnUiLabel,
+                Offlabel = OffUiLabel,
+                Onstyle = OnUiStyle,
+                Offstyle = OffUiStyle,
+                Width = SwitchWidth,
+                Height = SwitchHeight
+            };
+
+            if (!string.IsNullOrEmpty(SwitchSize))
+            {
+                switchOption.Size = SwitchSize;
+            }
+            if (!string.IsNullOrEmpty(SwitchStyle))
+            {
+                switchOption.Style = SwitchStyle;
+            }
+
             var importPath = $"./_content/{typeof(Switch).Assembly.GetName().Name}/js/";
             _switchButtonInitModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/initUI.js");
-            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
-                new
-                {
-                    Onlabel = OnUiLabel,
-                    Offlabel = OffUiLabel,
-                    OnStyle = OnUiStyle,
-                    OffStyle = OffUiStyle,
-                    Size = SwitchSize,
-                    Style = SwitchStyle,
-                    Width = SwitchWidth,
-                    Height = SwitchHeight
-                });
+            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer, switchOption);
             if (!string.IsNullOrEmpty(InitialState))
             {
                 await _switchButtonInitModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef, InitialState);
@@ -90,11 +99,26 @@
 
     public async ValueTask DisposeAsync()
     {
-        await switchButtonEventInvokeRef.DisposeAsync();
-        await _switchButtonEventHandlerModule.DisposeAsync();
+        if (switchButtonEventInvokeRef != null)
+        {
+            await switchButtonEventInvokeRef.DisposeAsync().ConfigureAwait(false);
+        }
+        if (_switchButtonEventHandlerModule != null)
+        {
+            await _switchButtonEventHandlerModule.DisposeAsync().ConfigureAwait(false);
+        }
+
         dotNetInvokeRef?.Dispose();
-        await _switchButtonInitModule.DisposeAsync();
-        await checkBoxInputJsRef.DisposeAsync();
+
+        if (_switchButtonInitModule != null)
+        {
+            await _switchButtonInitModule.DisposeAsync().ConfigureAwait(false);
+        }
+
+        if (checkBoxInputJsRef != null)
+        {
+            await checkBoxInputJsRef.DisposeAsync().ConfigureAwait(false);
+        }
     }
 
 }

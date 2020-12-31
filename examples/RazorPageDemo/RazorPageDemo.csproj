@@ -5,21 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\**" />
+    <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="wwwroot\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\GranDen.Blazor.Bootstrap.SwitchButton\GranDen.Blazor.Bootstrap.SwitchButton.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-switch-button\bootstrap-switch-button.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-switch-button\bootstrap-switch-button.min.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\js" />
   </ItemGroup>
 
 </Project>
