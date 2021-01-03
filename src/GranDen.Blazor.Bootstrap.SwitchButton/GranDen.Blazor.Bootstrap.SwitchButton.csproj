@@ -2,7 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Title>Blazor Bootstrap Switch Button</Title>
+    <Copyright>Copyright (c) 2021 GranDen Corp.(狂點軟體開發)</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/GranDen-Corp/BlazorSwitchButton</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageProjectUrl>https://github.com/GranDen-Corp/BlazorSwitchButton</PackageProjectUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageTags>blazor ui</PackageTags>
+    <Company>GranDen Inc.</Company>
+    <Authors>Isak Pao</Authors>
+    <Description>Package the bootstrap-switch-button(https://gitbrent.github.io/bootstrap-switch-button/) as a Blazor UI Component library.</Description>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>./GranDen.Blazor.Bootstrap.SwitchButton.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>./GranDen.Blazor.Bootstrap.SwitchButton.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="GranDen.Blazor.Bootstrap.SwitchButton.xml" />
+  </ItemGroup>
 
   
   <ItemGroup>
@@ -11,6 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

@@ -7,33 +7,63 @@
 
 @code {
 
+    /// <summary>
+    /// Set UI when Switch State is On
+    /// </summary>
     [Parameter]
     public string OnUiLabel { get; set; } = "On";
-
+    
+    /// <summary>
+    /// Set UI when Switch State is Off
+    /// </summary>
     [Parameter]
     public string OffUiLabel { get; set; } = "Off";
 
+    /// <summary>
+    /// Set CSS class names when Switch State is On
+    /// </summary>
     [Parameter]
     public string OnUiStyle { get; set; } = "primary";
 
+    /// <summary>
+    /// Set CSS class names when Switch State is Off
+    /// </summary>
     [Parameter]
     public string OffUiStyle { get; set; } = "light";
 
+    /// <summary>
+    /// (Optional) Set Switch size in CSS string representation
+    /// </summary>
     [Parameter]
     public string SwitchSize { get; set; } = null;
 
+    /// <summary>
+    /// (Optional) Set Switch CSS style
+    /// </summary>
     [Parameter]
     public string SwitchStyle { get; set; } = null;
 
+    /// <summary>
+    /// (Optional) Set Switch width
+    /// </summary>
     [Parameter]
     public int? SwitchWidth { get; set; }
 
+    /// <summary>
+    /// (Optional) Set Switch height
+    /// </summary>
     [Parameter]
     public int? SwitchHeight { get; set; }
 
+    /// <summary>
+    /// Set Switch initial state (default is Off)
+    /// </summary>
     [Parameter]
     public string InitialState { get; set; } = null;
 
+    /// <summary>
+    /// Event handler when Switch state changed
+    /// </summary>
     [Parameter]
     public EventCallback<bool> StateChanged { get; set; }
 
@@ -48,6 +78,7 @@
 
     #endregion
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -86,6 +117,10 @@
         }
     }
 
+    /// <summary>
+    /// Js interop method
+    /// </summary>
+    /// <param name="e"></param>
     [JSInvokable("SwitchBtnEventHandler")]
     public void OnSwitchButtonClicked(ChangeEventArgs e)
     {
@@ -97,6 +132,10 @@
         }
     }
 
+    /// <summary>
+    /// Dispose pattern for cleanup JS interop resource
+    /// </summary>
+    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         if (switchButtonEventInvokeRef != null)
