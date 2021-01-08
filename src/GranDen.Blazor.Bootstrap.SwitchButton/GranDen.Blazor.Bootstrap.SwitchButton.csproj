@@ -29,6 +29,10 @@
     <None Remove="GranDen.Blazor.Bootstrap.SwitchButton.xml" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />
