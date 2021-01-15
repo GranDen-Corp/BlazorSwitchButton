@@ -17,6 +17,10 @@
     <Description>Package the bootstrap-switch-button(https://gitbrent.github.io/bootstrap-switch-button/) as a Blazor UI Component library.</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>./GranDen.Blazor.Bootstrap.SwitchButton.xml</DocumentationFile>
   </PropertyGroup>
@@ -28,12 +32,7 @@
   <ItemGroup>
     <None Remove="GranDen.Blazor.Bootstrap.SwitchButton.xml" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
-  
+ 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

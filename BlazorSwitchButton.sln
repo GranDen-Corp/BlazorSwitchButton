@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GranDen.Blazor.Bootstrap.Sw
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A2E5AC7-1A51-434F-8F7E-05C980BC4B14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{32496926-CCA6-4064-B8F9-3B54ABC7C7A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{753B3025-FEE7-4014-BC02-A967EB1EF5A3} = {32496926-CCA6-4064-B8F9-3B54ABC7C7A9}
 		{D7917507-DF92-4944-A14F-CF7887F01E49} = {0A2E5AC7-1A51-434F-8F7E-05C980BC4B14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
