@@ -1,4 +1,7 @@
-﻿export function createSwitchButton(switchBtnContainer, switchBtnOption) {
+﻿import('./bootstrap-switch-button.min.js');
+
+// noinspection JSUnusedGlobalSymbols
+export function createSwitchButton(switchBtnContainer, switchBtnOption) {
     const DEFAULTS = {
         onlabel: 'On',
         onstyle: 'primary',
@@ -42,6 +45,25 @@
     return input;
 }
 
+// noinspection JSUnusedGlobalSymbols
 export function setSwitchButtonStatus(checkBoxInput, status) {
     checkBoxInput.switchButton(status);
 }
+
+// noinspection JSUnusedGlobalSymbols
+let dotNetInvokeUtil = {
+    dotNetReference: null,
+    init(dotNetReference, checkBoxReference) {
+        this.dotNetReference = dotNetReference;
+        checkBoxReference.addEventListener('change', function (event) {
+            event.value = !!checkBoxReference.checked;
+            // noinspection JSUnresolvedFunction
+            dotNetReference.invokeMethodAsync('SwitchBtnEventHandler', event)
+        });
+    }
+};
+
+// noinspection JSUnusedGlobalSymbols
+export let createDotNetInvokeRef = function () {
+    return dotNetInvokeUtil
+};

@@ -12,7 +12,7 @@
     /// </summary>
     [Parameter]
     public string OnUiLabel { get; set; } = "On";
-    
+
     /// <summary>
     /// Set UI when Switch State is Off
     /// </summary>
@@ -69,8 +69,7 @@
 
     #region Event Interop references
 
-    IJSObjectReference _switchButtonInitModule;
-    IJSObjectReference _switchButtonEventHandlerModule;
+    IJSObjectReference _switchButtonJsModule;
     ElementReference switchButtonContainer;
     IJSObjectReference checkBoxInputJsRef;
     DotNetObjectReference<Switch> dotNetInvokeRef;
@@ -104,14 +103,13 @@
             }
 
             var importPath = $"./_content/{typeof(Switch).Assembly.GetName().Name}/js/";
-            _switchButtonInitModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/initUI.js");
-            checkBoxInputJsRef = await _switchButtonInitModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer, switchOption);
+            _switchButtonJsModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/initUI.js");
+            checkBoxInputJsRef = await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer, switchOption);
             if (!string.IsNullOrEmpty(InitialState))
             {
-                await _switchButtonInitModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef, InitialState);
+                await _switchButtonJsModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef, InitialState);
             }
-            _switchButtonEventHandlerModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/hookEvent.js");
-            switchButtonEventInvokeRef = await _switchButtonEventHandlerModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
+            switchButtonEventInvokeRef = await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
             dotNetInvokeRef = DotNetObjectReference.Create(this);
             await switchButtonEventInvokeRef.InvokeVoidAsync("init", dotNetInvokeRef, checkBoxInputJsRef);
         }
@@ -142,16 +140,12 @@
         {
             await switchButtonEventInvokeRef.DisposeAsync().ConfigureAwait(false);
         }
-        if (_switchButtonEventHandlerModule != null)
-        {
-            await _switchButtonEventHandlerModule.DisposeAsync().ConfigureAwait(false);
-        }
 
         dotNetInvokeRef?.Dispose();
 
-        if (_switchButtonInitModule != null)
+        if (_switchButtonJsModule != null)
         {
-            await _switchButtonInitModule.DisposeAsync().ConfigureAwait(false);
+            await _switchButtonJsModule.DisposeAsync().ConfigureAwait(false);
         }
 
         if (checkBoxInputJsRef != null)
