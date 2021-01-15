@@ -1,4 +1,4 @@
-﻿import('./bootstrap-switch-button.min.js');
+﻿import './bootstrap-switch-button.min.js';
 
 // noinspection JSUnusedGlobalSymbols
 export function createSwitchButton(switchBtnContainer, switchBtnOption) {
