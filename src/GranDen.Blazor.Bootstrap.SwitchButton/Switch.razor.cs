@@ -9,7 +9,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
     /// <summary>
     /// Switch Button implementation
     /// </summary>
-    public partial class Switch : IAsyncDisposable
+    public partial class Switch
     {
         [Inject] private IJSRuntime JS { get; set; }
 
@@ -75,11 +75,11 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
 
         #region Event Interop references
 
-        IJSObjectReference _switchButtonJsModule;
-        ElementReference switchButtonContainer;
-        IJSObjectReference checkBoxInputJsRef;
-        DotNetObjectReference<Switch> dotNetInvokeRef;
-        IJSObjectReference switchButtonEventInvokeRef;
+        private IJSObjectReference _switchButtonJsModule;
+        private ElementReference _switchButtonContainer;
+        private IJSObjectReference _checkBoxInputJsRef;
+        private DotNetObjectReference<Switch> _dotNetInvokeRef;
+        private IJSObjectReference _switchButtonEventInvokeRef;
 
         #endregion
 
@@ -89,8 +89,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                var switchOption = new SwitchOption
-                {
+                var switchOption = new SwitchOption {
                     Onlabel = OnUiLabel,
                     Offlabel = OffUiLabel,
                     Onstyle = OnUiStyle,
@@ -111,18 +110,18 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
 
                 var importPath = $"./_content/{typeof(Switch).Assembly.GetName().Name}/js";
                 _switchButtonJsModule = await JS.InvokeAsync<IJSObjectReference>("import", $"{importPath}/initUI.js");
-                checkBoxInputJsRef =
-                    await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createSwitchButton", switchButtonContainer,
+                _checkBoxInputJsRef =
+                    await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createSwitchButton", _switchButtonContainer,
                         switchOption);
                 if (!string.IsNullOrEmpty(InitialState))
                 {
-                    await _switchButtonJsModule.InvokeVoidAsync("setSwitchButtonStatus", checkBoxInputJsRef, InitialState);
+                    await _switchButtonJsModule.InvokeVoidAsync("setSwitchButtonStatus", _checkBoxInputJsRef, InitialState);
                 }
 
-                switchButtonEventInvokeRef =
+                _switchButtonEventInvokeRef =
                     await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
-                dotNetInvokeRef = DotNetObjectReference.Create(this);
-                await switchButtonEventInvokeRef.InvokeVoidAsync("init", dotNetInvokeRef, checkBoxInputJsRef);
+                _dotNetInvokeRef = DotNetObjectReference.Create(this);
+                await _switchButtonEventInvokeRef.InvokeVoidAsync("init", _dotNetInvokeRef, _checkBoxInputJsRef);
             }
         }
 
@@ -141,28 +140,57 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
             }
         }
 
+        #region Dispose Pattern implementation
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
-        /// Dispose pattern for cleanup JS interop resource
+        /// Actual dispose object implementation
         /// </summary>
         /// <returns></returns>
-        public async ValueTask DisposeAsync()
+        protected virtual void Dispose(bool disposing)
         {
-            if (switchButtonEventInvokeRef != null)
+            if (disposing)
             {
-                await switchButtonEventInvokeRef.DisposeAsync().ConfigureAwait(false);
+                _dotNetInvokeRef?.Dispose();
+                (_switchButtonJsModule as IDisposable)?.Dispose();
             }
 
-            dotNetInvokeRef?.Dispose();
+            _dotNetInvokeRef = null;
+            _switchButtonJsModule = null;
+        }
 
+        /// <summary>
+        /// Actual async dispose object implementation 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore()
+        {
             if (_switchButtonJsModule != null)
             {
                 await _switchButtonJsModule.DisposeAsync().ConfigureAwait(false);
             }
 
-            if (checkBoxInputJsRef != null)
-            {
-                await checkBoxInputJsRef.DisposeAsync().ConfigureAwait(false);
-            }
+            _switchButtonJsModule = null;
+
+            _dotNetInvokeRef?.Dispose();
+            _dotNetInvokeRef = null;
         }
+
+        /// <inheritdoc />
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore();
+
+            Dispose(disposing: false);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }

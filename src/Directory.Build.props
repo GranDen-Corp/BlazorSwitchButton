@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
-    <Version Condition=" '$(Version)'=='' ">0.0.3-beta</Version>
-    <PackageReleaseNotes>0.0.3-beta : 
-      &#xD;&#xA;Fix bootstrap-switch-button js loading bug
+    <Version Condition=" '$(Version)'=='' ">0.0.4-beta</Version>
+    <PackageReleaseNotes>0.0.4-beta : 
+      &#xD;&#xA;Fix component dispose error exception
       &#xD;&#xA;Note: currently only test on Blazor Server application.
       &#xD;&#xA;
     </PackageReleaseNotes>
