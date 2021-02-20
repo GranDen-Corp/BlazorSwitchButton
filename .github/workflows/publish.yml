@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - master # Default release branch
-    tags:
-      - "v*"
+      
 jobs:
   publish:
     name: build, pack & publish
@@ -26,12 +25,3 @@ jobs:
           VERSION_REGEX: ^\s*<Version Condition=\" \'\$\(Version\)\'==\'\' \">(.*)<\/Version>\s*$
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           INCLUDE_SYMBOLS: true
-      # Create GitHub Release
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
