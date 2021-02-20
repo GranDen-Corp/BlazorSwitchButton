@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GranDen.Blazor.Bootstrap.SwitchButton.Options;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace GranDen.Blazor.Bootstrap.SwitchButton
@@ -12,6 +13,8 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
     public partial class Switch
     {
         [Inject] private IJSRuntime JS { get; set; }
+
+        [Inject] private ILogger<Switch> _logger { get; set; }
 
         /// <summary>
         /// Set UI when Switch State is On
@@ -158,7 +161,24 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
             if (disposing)
             {
                 _dotNetInvokeRef?.Dispose();
-                (_switchButtonJsModule as IDisposable)?.Dispose();
+                switch (_switchButtonJsModule)
+                {
+                    case IDisposable disposable:
+                        disposable.Dispose();
+                        break;
+                    case IAsyncDisposable asyncDisposable:
+                    {
+                        try
+                        {
+                            asyncDisposable.DisposeAsync().AsTask().RunSynchronously();
+                        }
+                        catch (OperationCanceledException ex)
+                        {
+                            _logger.LogDebug(ex, $"Disposing JSInterop object {nameof(_switchButtonJsModule)} timeout");
+                        }
+                        break;
+                    }
+                }
             }
 
             _dotNetInvokeRef = null;
@@ -171,15 +191,22 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         /// <returns></returns>
         protected virtual async ValueTask DisposeAsyncCore()
         {
+            _dotNetInvokeRef?.Dispose();
+            _dotNetInvokeRef = null;
+
             if (_switchButtonJsModule != null)
             {
-                await _switchButtonJsModule.DisposeAsync().ConfigureAwait(false);
+                try
+                {
+                    await _switchButtonJsModule.DisposeAsync().ConfigureAwait(false);
+                }
+                catch (OperationCanceledException ex)
+                {
+                    _logger.LogInformation(ex, $"Disposing JSInterop object {nameof(_switchButtonJsModule)} timeout");
+                }
             }
 
             _switchButtonJsModule = null;
-
-            _dotNetInvokeRef?.Dispose();
-            _dotNetInvokeRef = null;
         }
 
         /// <inheritdoc />

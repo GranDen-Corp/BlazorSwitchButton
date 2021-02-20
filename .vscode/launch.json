@@ -5,14 +5,14 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Server Demo",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build ServerDemo",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/examples/RazorPageDemo/bin/Debug/net5.0/RazorPageDemo.dll",
+            "program": "${workspaceFolder}/examples/Server/RazorPageDemo/bin/Debug/net5.0/RazorPageDemo.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/examples/RazorPageDemo",
+            "cwd": "${workspaceFolder}/examples/Server/RazorPageDemo",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
@@ -23,14 +23,14 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/examples/Views"
+                "/Views": "${workspaceFolder}/examples/Server/Views"
             }
         },
         {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
+            "name": "Wasm Demo",
+            "type": "blazorwasm",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/examples/BlazorWasmAppDemo/Server"
         }
     ]
 }

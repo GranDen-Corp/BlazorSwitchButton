@@ -1,0 +1,22 @@
+﻿@page "/"
+@using GranDen.Blazor.Bootstrap.SwitchButton
+@using Serilog
+
+<fieldset class="border p-3">
+    <legend>Bootstrap Switch Button in Wasm frontend</legend>
+
+    <Switch InitialState="On"
+            OnUiLabel="Enabled" OffUiLabel="Disabled"
+            StateChanged="@SwitchCompStateChanged">
+    </Switch>
+</fieldset>
+
+
+@code {
+
+    private void SwitchCompStateChanged(bool currentState)
+    {
+        Log.Debug("switch is {0}", currentState);
+    }
+
+}

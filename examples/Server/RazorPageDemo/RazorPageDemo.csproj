@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GranDen.Blazor.Bootstrap.SwitchButton\GranDen.Blazor.Bootstrap.SwitchButton.csproj" />
+    <ProjectReference Include="..\..\..\src\GranDen.Blazor.Bootstrap.SwitchButton\GranDen.Blazor.Bootstrap.SwitchButton.csproj" />
   </ItemGroup>
 
 </Project>
