@@ -14,7 +14,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
     {
         [Inject] private IJSRuntime JS { get; set; }
 
-        [Inject] private ILogger<Switch> _logger { get; set; }
+        [Inject] private ILogger<Switch> Logger { get; set; }
 
         /// <summary>
         /// Set UI when Switch State is On
@@ -85,6 +85,9 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         private IJSObjectReference _switchButtonEventInvokeRef;
 
         #endregion
+
+        private readonly string DisposeTimeoutLogTemplate = 
+            $"Disposing JSInterop object {nameof(_switchButtonJsModule)} in {nameof(Switch)} component timeout";
 
         /// <inheritdoc />
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -174,7 +177,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                         }
                         catch (OperationCanceledException ex)
                         {
-                            _logger.LogDebug(ex, $"Disposing JSInterop object {nameof(_switchButtonJsModule)} timeout");
+                            Logger.LogDebug(ex, DisposeTimeoutLogTemplate);
                         }
                         break;
                     }
@@ -186,7 +189,8 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         }
 
         /// <summary>
-        /// Actual async dispose object implementation 
+        /// Actual dispose object implementation,
+        /// see: https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-disposeasync#implement-the-async-dispose-pattern
         /// </summary>
         /// <returns></returns>
         protected virtual async ValueTask DisposeAsyncCore()
@@ -202,7 +206,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                 }
                 catch (OperationCanceledException ex)
                 {
-                    _logger.LogInformation(ex, $"Disposing JSInterop object {nameof(_switchButtonJsModule)} timeout");
+                    Logger.LogDebug(ex, DisposeTimeoutLogTemplate);
                 }
             }
 
