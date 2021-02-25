@@ -41,29 +41,31 @@ export function createSwitchButton(switchBtnContainer, switchBtnOption) {
     }
 
     switchBtnContainer.appendChild(input);
+    // noinspection JSUnresolvedFunction
     input.switchButton(options);
     return input;
 }
 
 // noinspection JSUnusedGlobalSymbols
-export function setSwitchButtonStatus(checkBoxInput, status) {
-    checkBoxInput.switchButton(status);
+export function setSwitchButtonStatus(checkBoxInput, status, preventEventPropagate) {
+    // noinspection JSUnresolvedFunction
+    checkBoxInput.switchButton(status, preventEventPropagate);
+}
+
+let dotnetInvokeRef = function () {
+    // noinspection JSUnusedGlobalSymbols
+    return {
+        init: function (dotnetInvokeReference, checkBoxReference) {
+            checkBoxReference.addEventListener('change', function (event) {
+                event.value = !!checkBoxReference.checked;
+                // noinspection JSUnresolvedFunction
+                dotnetInvokeReference.invokeMethodAsync('SwitchBtnEventHandler', event)
+            });
+        }
+    };
 }
 
 // noinspection JSUnusedGlobalSymbols
-let dotNetInvokeUtil = {
-    dotNetReference: null,
-    init(dotNetReference, checkBoxReference) {
-        this.dotNetReference = dotNetReference;
-        checkBoxReference.addEventListener('change', function (event) {
-            event.value = !!checkBoxReference.checked;
-            // noinspection JSUnresolvedFunction
-            dotNetReference.invokeMethodAsync('SwitchBtnEventHandler', event)
-        });
-    }
-};
-
-// noinspection JSUnusedGlobalSymbols
 export let createDotNetInvokeRef = function () {
-    return dotNetInvokeUtil
+    return new dotnetInvokeRef();
 };

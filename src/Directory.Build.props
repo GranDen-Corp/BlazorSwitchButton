@@ -1,10 +1,9 @@
 <Project>
-  <PropertyGroup>
-    <Version Condition=" '$(Version)'=='' ">0.0.5</Version>
-    <PackageReleaseNotes>0.0.5 : 
-      &#xD;&#xA;1. Fix component dispose error exception
-      &#xD;&#xA;2. Testing on wasm frontend
-      &#xD;&#xA;
-    </PackageReleaseNotes>
-  </PropertyGroup>
+    <PropertyGroup>
+        <Version Condition=" '$(Version)'=='' ">0.1.0</Version>
+        <PackageReleaseNotes>0.1.0 :
+            &#xD;&#xA;1. Add State Parameter for two-way data binding.
+            &#xD;&#xA;2. Fix multiple component fire event bug.
+        </PackageReleaseNotes>
+    </PropertyGroup>
 </Project>

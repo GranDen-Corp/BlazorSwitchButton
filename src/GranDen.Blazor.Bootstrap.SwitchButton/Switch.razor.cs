@@ -16,6 +16,8 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
 
         [Inject] private ILogger<Switch> Logger { get; set; }
 
+        #region Component Parameters
+
         /// <summary>
         /// Set UI when Switch State is On
         /// </summary>
@@ -70,11 +72,32 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         [Parameter]
         public string InitialState { get; set; } = null;
 
+        private bool _currentState;
+
+        /// <summary>
+        /// Switch current state
+        /// </summary>
+        [Parameter]
+        public bool State {
+            get => _currentState;
+            set {
+                if (_currentState == value)
+                {
+                    return;
+                }
+
+                _currentState = value;
+                SetSwitchButtonState(_currentState);
+            }
+        }
+
         /// <summary>
         /// Event handler when Switch state changed
         /// </summary>
         [Parameter]
         public EventCallback<bool> StateChanged { get; set; }
+
+        #endregion
 
         #region Event Interop references
 
@@ -82,12 +105,14 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         private ElementReference _switchButtonContainer;
         private IJSObjectReference _checkBoxInputJsRef;
         private DotNetObjectReference<Switch> _dotNetInvokeRef;
-        private IJSObjectReference _switchButtonEventInvokeRef;
+        private IJSObjectReference _switchBtnEventInvokeRef;
 
         #endregion
 
-        private readonly string DisposeTimeoutLogTemplate = 
+        private readonly string DisposeTimeoutLogTemplate =
             $"Disposing JSInterop object {nameof(_switchButtonJsModule)} in {nameof(Switch)} component timeout";
+
+        private const string SetStatusJsCall = @"setSwitchButtonStatus";
 
         /// <inheritdoc />
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -119,15 +144,20 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                 _checkBoxInputJsRef =
                     await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createSwitchButton", _switchButtonContainer,
                         switchOption);
+
                 if (!string.IsNullOrEmpty(InitialState))
                 {
-                    await _switchButtonJsModule.InvokeVoidAsync("setSwitchButtonStatus", _checkBoxInputJsRef, InitialState);
+                    await _switchButtonJsModule.InvokeVoidAsync(SetStatusJsCall, _checkBoxInputJsRef, InitialState, true);
+                }
+                else if (State)
+                {
+                    await _switchButtonJsModule.InvokeVoidAsync(SetStatusJsCall, _checkBoxInputJsRef, "on", true);
                 }
 
-                _switchButtonEventInvokeRef =
-                    await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
+                _switchBtnEventInvokeRef = await _switchButtonJsModule.InvokeAsync<IJSObjectReference>("createDotNetInvokeRef");
+
                 _dotNetInvokeRef = DotNetObjectReference.Create(this);
-                await _switchButtonEventInvokeRef.InvokeVoidAsync("init", _dotNetInvokeRef, _checkBoxInputJsRef);
+                await _switchBtnEventInvokeRef.InvokeVoidAsync("init", _dotNetInvokeRef, _checkBoxInputJsRef);
             }
         }
 
@@ -140,9 +170,24 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         {
             var status = e.Value?.ToString();
             var isChecked = bool.Parse(status ?? string.Empty);
+            State = isChecked;
             if (StateChanged.HasDelegate)
             {
                 StateChanged.InvokeAsync(isChecked);
+            }
+        }
+
+        private async void SetSwitchButtonState(bool state)
+        {
+            var inputState = "off";
+            if (state)
+            {
+                inputState = "on";
+            }
+
+            if (_switchButtonJsModule != null)
+            {
+                await _switchButtonJsModule.InvokeVoidAsync(SetStatusJsCall, _checkBoxInputJsRef, inputState, true);
             }
         }
 
@@ -179,6 +224,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                         {
                             Logger.LogDebug(ex, DisposeTimeoutLogTemplate);
                         }
+
                         break;
                     }
                 }
@@ -193,7 +239,7 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
         /// see: https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-disposeasync#implement-the-async-dispose-pattern
         /// </summary>
         /// <returns></returns>
-        protected virtual async ValueTask DisposeAsyncCore()
+        protected async virtual ValueTask DisposeAsyncCore()
         {
             _dotNetInvokeRef?.Dispose();
             _dotNetInvokeRef = null;
