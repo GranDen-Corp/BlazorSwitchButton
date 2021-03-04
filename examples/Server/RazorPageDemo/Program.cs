@@ -17,8 +17,8 @@ namespace RazorPageDemo
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile("appsettings.Development.json", true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile("appsettings.Development.json", true, true)
                 .Build();
 
             Log.Logger = new LoggerConfiguration()

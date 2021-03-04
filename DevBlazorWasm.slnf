@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "BlazorSwitchButton.sln",
+    "projects": [
+      "examples\\BlazorWasmAppDemo\\Client\\BlazorWasmAppDemo.Client.csproj",
+      "examples\\BlazorWasmAppDemo\\Server\\BlazorWasmAppDemo.Server.csproj",
+      "examples\\BlazorWasmAppDemo\\Shared\\BlazorWasmAppDemo.Shared.csproj",
+      "src\\GranDen.Blazor.Bootstrap.SwitchButton\\GranDen.Blazor.Bootstrap.SwitchButton.csproj"
+    ]
+  }
+}
