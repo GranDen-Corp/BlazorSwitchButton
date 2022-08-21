@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build ServerDemo",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/examples/Server/RazorPageDemo/bin/Debug/net5.0/RazorPageDemo.dll",
+            "program": "${workspaceFolder}/examples/Server/RazorPageDemo/bin/Debug/net6.0/RazorPageDemo.dll",
             "args": [],
             "cwd": "${workspaceFolder}/examples/Server/RazorPageDemo",
             "stopAtEntry": false,
@@ -27,10 +27,15 @@
             }
         },
         {
+        //TODO: vscode debug standalone WASM can launch, but breakpoint not functional:
+        // https://docs.microsoft.com/en-us/aspnet/core/blazor/debug?view=aspnetcore-6.0&tabs=visual-studio-code#vscode
             "name": "Wasm Demo",
             "type": "blazorwasm",
             "request": "launch",
-            "cwd": "${workspaceFolder}/examples/BlazorWasmAppDemo/Server"
+            "preLaunchTask": "build WasmDemo",
+            "browser": "edge",
+            "cwd": "${workspaceFolder}/examples/BlazorWasmAppDemo/Client",
+            "url": "https://localhost:5001"
         }
     ]
 }

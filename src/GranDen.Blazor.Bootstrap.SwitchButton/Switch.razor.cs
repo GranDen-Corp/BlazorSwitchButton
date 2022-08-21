@@ -109,13 +109,13 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
 
         #endregion
 
-        private readonly string DisposeTimeoutLogTemplate =
+        private readonly string _disposeTimeoutLogTemplate =
             $"Disposing JSInterop object {nameof(_switchButtonJsModule)} in {nameof(Switch)} component timeout";
 
         private const string SetStatusJsCall = @"setSwitchButtonStatus";
 
         /// <inheritdoc />
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected async override Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
@@ -222,7 +222,8 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                         }
                         catch (OperationCanceledException ex)
                         {
-                            Logger.LogDebug(ex, DisposeTimeoutLogTemplate);
+                            // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
+                            Logger.LogDebug(ex, _disposeTimeoutLogTemplate);
                         }
 
                         break;
@@ -252,7 +253,8 @@ namespace GranDen.Blazor.Bootstrap.SwitchButton
                 }
                 catch (OperationCanceledException ex)
                 {
-                    Logger.LogDebug(ex, DisposeTimeoutLogTemplate);
+                    // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
+                    Logger.LogDebug(ex, _disposeTimeoutLogTemplate);
                 }
             }
 
