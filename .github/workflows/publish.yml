@@ -2,22 +2,22 @@ name: publish to nuget
 on:
   push:
     branches:
-      - master # Default release branch
+      - main # Default release branch
       
 jobs:
   publish:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.7.2
+      - uses: actions/checkout@v3
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 5.0.x
+          global-json-file: global.json
       # Publish
       - name: publish on version change
         id: publish_nuget
-        uses: rohith/publish-nuget@v2
+        uses: brandedoutcast/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/GranDen.Blazor.Bootstrap.SwitchButton/GranDen.Blazor.Bootstrap.SwitchButton.csproj
