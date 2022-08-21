@@ -1,0 +1,52 @@
+﻿@page "/"
+@using GranDen.Blazor.Bootstrap.SwitchButton
+@using Microsoft.Extensions.Logging
+@{#if DEBUG}
+@inject ILogger<Index> Logger
+@{#endif}
+
+<fieldset class="border p-3">
+    <legend>Bootstrap Switch Button in .NET MAUI Blazor</legend>
+
+    <ul>
+        <li>
+            Use Event handler: <br/>
+            <Switch InitialState="On"
+                    OnUiLabel="Enabled" OffUiLabel="Disabled"
+                    StateChanged="@SwitchCompStateChanged">
+            </Switch>
+            <br/>
+            switch is: <b>@_switch01Prompt</b>
+            <br/>
+            <br/>
+        </li>
+
+        <li>
+            Use Two-way Data binding: <br/>
+            <Switch
+                OnUiLabel="True" OffUiLabel="False"
+                @bind-State="_switch02State">
+            </Switch>
+
+            <br/>
+            Current State: <code>@_switch02State</code>;
+        </li>
+    </ul>
+
+</fieldset>
+
+@code {
+    private string _switch01Prompt;
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    private bool _switch02State = false;
+
+    private void SwitchCompStateChanged(bool currentState)
+    {
+        #if DEBUG
+        Logger.LogInformation("switch01 is {0}", currentState);
+        #endif
+        
+        _switch01Prompt = currentState ? "Enabled" : "Disabled";
+    }
+}

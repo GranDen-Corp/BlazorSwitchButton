@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPageDemo", "examples\Server\RazorPageDemo\RazorPageDemo.csproj", "{753B3025-FEE7-4014-BC02-A967EB1EF5A3}"
 EndProject
@@ -11,15 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A2E5AC7-1A5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{32496926-CCA6-4064-B8F9-3B54ABC7C7A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmAppDemo.Server", "examples\BlazorWasmAppDemo\Server\BlazorWasmAppDemo.Server.csproj", "{7547B6C3-C43A-4DB4-89A7-200B784589B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAppDemo.Server", "examples\BlazorWasmAppDemo\Server\BlazorWasmAppDemo.Server.csproj", "{7547B6C3-C43A-4DB4-89A7-200B784589B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmAppDemo.Client", "examples\BlazorWasmAppDemo\Client\BlazorWasmAppDemo.Client.csproj", "{09C4924F-0A77-4BC3-9470-E2CDE864ACE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAppDemo.Client", "examples\BlazorWasmAppDemo\Client\BlazorWasmAppDemo.Client.csproj", "{09C4924F-0A77-4BC3-9470-E2CDE864ACE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmAppDemo.Shared", "examples\BlazorWasmAppDemo\Shared\BlazorWasmAppDemo.Shared.csproj", "{FF89D440-E448-4BFD-9D9D-7F81294F4845}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAppDemo.Shared", "examples\BlazorWasmAppDemo\Shared\BlazorWasmAppDemo.Shared.csproj", "{FF89D440-E448-4BFD-9D9D-7F81294F4845}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wasm", "Wasm", "{9B7FF169-8ED8-49A4-BE12-8B082B232DD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{0E9D9458-4F0F-4ABA-98C6-77BC8696C7F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hybrid", "Hybrid", "{C91B04DB-BAD0-484C-8AA6-F2EA4FD830F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiBlazorAppDemo", "examples\Hybrid\MauiBlazorAppDemo\MauiBlazorAppDemo.csproj", "{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,12 @@ Global
 		{FF89D440-E448-4BFD-9D9D-7F81294F4845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF89D440-E448-4BFD-9D9D-7F81294F4845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF89D440-E448-4BFD-9D9D-7F81294F4845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +69,8 @@ Global
 		{FF89D440-E448-4BFD-9D9D-7F81294F4845} = {9B7FF169-8ED8-49A4-BE12-8B082B232DD9}
 		{9B7FF169-8ED8-49A4-BE12-8B082B232DD9} = {32496926-CCA6-4064-B8F9-3B54ABC7C7A9}
 		{0E9D9458-4F0F-4ABA-98C6-77BC8696C7F3} = {32496926-CCA6-4064-B8F9-3B54ABC7C7A9}
+		{C91B04DB-BAD0-484C-8AA6-F2EA4FD830F5} = {32496926-CCA6-4064-B8F9-3B54ABC7C7A9}
+		{DCA2D3BF-883F-457A-91A3-CC2C12282DA0} = {C91B04DB-BAD0-484C-8AA6-F2EA4FD830F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF66E054-1C1E-4406-A848-7EADCF015E39}
