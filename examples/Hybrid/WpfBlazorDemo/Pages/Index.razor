@@ -7,7 +7,7 @@
 @{#endif}
 
 <fieldset class="border p-3">
-    <legend>Bootstrap Switch Button in .NET MAUI Blazor</legend>
+    <legend>Bootstrap Switch Button in Hybrid Blazor on WPF</legend>
 
     <ul>
         <li>
@@ -37,7 +37,7 @@
 </fieldset>
 
 @code {
-    private string _switch01Prompt;
+    private string? _switch01Prompt;
 
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
     private bool _switch02State = false;
@@ -51,3 +51,4 @@
         _switch01Prompt = currentState ? "Enabled" : "Disabled";
     }
 }
+

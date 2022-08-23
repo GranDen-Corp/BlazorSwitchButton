@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/GranDen-Corp/BlazorSwitchButton</PackageProjectUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageTags>blazor ui</PackageTags>
+    <PackageTags>blazor blazor-component ui wasm maui</PackageTags>
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
     <Description>Package the bootstrap-switch-button(https://gitbrent.github.io/bootstrap-switch-button/) as a Blazor UI Component library.</Description>

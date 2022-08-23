@@ -8,9 +8,9 @@ Support **[Blazor Server](https://docs.microsoft.com/en-us/aspnet/core/blazor/ho
 
 ## Installation notes
 
-After install nuget, you must add CSS reference in hosting html file:
+After install nuget, you must add CSS reference in hosting html file in you project.
 
-`_Host.cshtml` in Blazor Server 
+`_Host.cshtml` in Blazor Server project:
 
 ```cshtml
 @page "/"
@@ -33,7 +33,7 @@ After install nuget, you must add CSS reference in hosting html file:
 </html>
 ```
 
-`index.html` in Blazor WASM and Blazor Hybrid.
+`index.html` in Blazor WASM and Blazor Hybrid project:
 
 ```html
 <head>

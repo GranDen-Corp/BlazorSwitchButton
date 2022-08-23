@@ -3,7 +3,7 @@
         <Version Condition=" '$(Version)'=='' ">1.0.1-beta</Version>
         <PackageReleaseNotes>1.0.1 :
             &#xD;&#xA; 1. Add README.md file in nuget package.
-            &#xD;&#xA;
+            &#xD;&#xA; 2. Add Blazor Hybrid on WPF example.
         </PackageReleaseNotes>
         <Deterministic>true</Deterministic>
     </PropertyGroup>

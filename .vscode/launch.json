@@ -36,6 +36,17 @@
             "browser": "edge",
             "cwd": "${workspaceFolder}/examples/BlazorWasmAppDemo/Client",
             "url": "https://localhost:5001"
+        },
+        {
+            "name": "Wpf Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build WpfBlazorDemo",
+            "program": "${workspaceFolder}/examples/Hybrid/WpfBlazorDemo/bin/Debug/net6.0-windows/WpfBlazorDemo.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/Hybrid/WpfBlazorDemo",
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ]
 }
