@@ -1,9 +1,7 @@
 name: "create github release"
-on:
-  push:
-    tags:
-      - "v*"
       
+on:
+  workflow_dispatch:
 jobs:
   tagged-release:
     name: "Tagged Release"
