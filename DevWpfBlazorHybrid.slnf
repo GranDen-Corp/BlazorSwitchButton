@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "BlazorSwitchButton.sln",
+    "projects": [
+      "examples\\Hybrid\\WpfBlazorDemo\\WpfBlazorDemo.csproj",
+      "src\\GranDen.Blazor.Bootstrap.SwitchButton\\GranDen.Blazor.Bootstrap.SwitchButton.csproj"
+    ]
+  }
+}
