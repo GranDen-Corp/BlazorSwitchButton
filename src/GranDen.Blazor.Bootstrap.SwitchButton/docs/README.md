@@ -41,7 +41,7 @@ After install nuget, you must add CSS reference in hosting html file in you proj
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
 
-    <!-- Be sure to add component bundled css -->
+    <! -- Be sure to add component bundled css -- >
     <link rel="stylesheet" href="_content/GranDen.Blazor.Bootstrap.SwitchButton/css/bootstrap-switch-button.min.css" />
 
     <link href="BlazorWasmAppDemo.Client.styles.css" rel="stylesheet" />
