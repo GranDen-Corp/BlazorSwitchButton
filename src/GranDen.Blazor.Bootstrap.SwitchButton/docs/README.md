@@ -1,10 +1,8 @@
 # BlazorSwitchButton
 
-[![Build Status](https://img.shields.io/github/workflow/status/GranDen-Corp/BlazorSwitchButton/CI)](https://github.com/GranDen-Corp/BlazorSwitchButton/actions)
-
 Package the [bootstrap-switch-button](https://gitbrent.github.io/bootstrap-switch-button/) as a Blazor UI Component.
 
-Support **[Blazor Server](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-server)**, **[Blazor WASM(WebAssembly)](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-webassembly)** and **[Blazor Hybrid](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-hybrid)**.
+Support **[Blazor Server](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-server)**, **[Blazor WASM(WebAssembly)](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-webassembly)** and **[ASP.NET Core Blazor Hybrid](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-hybrid)**.
 
 ## Installation notes
 
