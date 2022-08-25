@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: "build library src"
+name: "0. build library src"
 
 # Controls when the action will run. 
 on:
@@ -9,10 +9,9 @@ on:
     branches: [ main ]
     paths-ignore:
      - 'examples/**'
+     - 'scripts/**'
   pull_request:
     branches: [ main ]
-    paths-ignore:
-     - 'examples/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

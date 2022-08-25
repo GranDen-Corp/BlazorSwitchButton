@@ -1,9 +1,8 @@
 <Project>
     <PropertyGroup>
-        <Version Condition=" '$(Version)'=='' ">1.0.1</Version>
-        <PackageReleaseNotes>1.0.1 :
-            &#xD;&#xA; 1. Add README.md file in nuget package.
-            &#xD;&#xA; 2. Add Blazor Hybrid on WPF example.
+        <Version Condition=" '$(Version)'=='' ">1.0.2-preview</Version>
+        <PackageReleaseNotes>1.0.2 :
+            &#xD;&#xA; Add Blazor Hybrid on Windows Forms example.
         </PackageReleaseNotes>
         <Deterministic>true</Deterministic>
     </PropertyGroup>

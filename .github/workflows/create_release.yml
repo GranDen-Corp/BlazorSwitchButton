@@ -1,15 +1,25 @@
-name: "create github release"
-      
+name: "2. create github release"
+
 on:
   workflow_dispatch:
+
 jobs:
   tagged-release:
     name: "Tagged Release"
     runs-on: "ubuntu-latest"
     steps:
+      - uses: actions/checkout@v3
+      - name: "Get Version info from src/Directory.Build.props"
+        id: "get_version"
+        shell: pwsh
+        run: |
+          $version_info = & ./scripts/get_build_version.ps1
+          echo "version: $version_info"
+          Write-Output "::set-output name=version_str::$('v'+$($version_info.OriginalVersion))"
       # Create GitHub.com Release
       - name: "Create GitHub Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      
+          automatic_release_tag: "${{ steps.get_version.outputs.version_str }}"
+          prerelease: true
